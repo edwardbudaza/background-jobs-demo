@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Ignore OpenNext's build output
 .open-next
+.open-next/
+.wrangler/
+.dev.vars
