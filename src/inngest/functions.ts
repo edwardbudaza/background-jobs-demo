@@ -16,3 +16,22 @@ export const processTask = inngest.createFunction(
     return { message: `Task ${event.data.id} complete`, result };
   },
 );
+
+export const dailySummary = inngest.createFunction(
+  {
+    id: "daily-summary",
+    triggers: { cron: "TZ=Africa/Johannesburg 0 9 * * *" },
+  },
+  async ({ step }) => {
+    // Simulate daily summary generation
+    const summary = await step.run("build-summary", async () => {
+      // Real version: query your DB for yesterday's task count, errors, etc.
+      return {
+        date: new Date().toISOString().slice(0, 10),
+        tasksProcessed: Math.floor(Math.random() * 50),
+      };
+    });
+
+    return { message: "Daily summary generated", summary };
+  },
+);
